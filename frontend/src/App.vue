@@ -3,18 +3,18 @@
     <div class="team">
       <p>YOUR TEAM!</p>
       <div class="pokemon-box drop-zone" @drop='onDrop($event,1)' @dragover.prevent @dragenter.prevent>
-        <div v-for="pokemon in listOne" :key="pokemon.id" class="drag-el" draggable @dragstart='startDrag($event,pokemon)'>
+        <div v-for="pokemon in listOne()" :key="pokemon.id" class="drag-el" draggable="true" @dragstart='startDrag($event,pokemon)'>
           <img :src="pokemon.image_link" alt="foto">
         </div>
       </div>
     </div>
     <ul class="drop-zone" @drop='onDrop($event,2)' @dragover.prevent @dragenter.prevent>
-       <li  v-for="pokemon in listTwo" :key="pokemon.id" class="drag-el" draggable @dragstart='startDrag($event,pokemon)'>
+       <div  v-for="pokemon in listTwo()" :key="pokemon.id" class="drag-el" draggable="true" @dragstart='startDrag($event,pokemon)'>
          <div class="card">
            <img :src="pokemon.image_link" alt="foto">
            <p>#{{pokemon.id}}  {{pokemon.name}}</p>
          </div>   
-       </li>
+       </div>
     </ul>
   </div>
   
@@ -31,7 +31,7 @@ export default {
   },
   data: function(){
     return{
-      pokemons:null,
+      pokemons:[],
     }
   },
   mounted(){
@@ -60,18 +60,16 @@ export default {
                  })
           }) */
 
-      })
+      });
+      Promise.all(this.pokemons);
   },
-  computed:{
+  methods: {
     listOne () {
       return this.pokemons.filter(item => item.list === 1);
     },
     listTwo () {
       return this.pokemons.filter(item => item.list === 2);
     },
-  },
-  methods: {
-    
     startDrag: (evt,item) => {
       evt.dataTransfer.dropEffect = 'move';
       evt.dataTransfer.effectAllowed = 'move';
@@ -118,7 +116,7 @@ export default {
    
  }
 
- ul li {
+ ul .drag-el {
    margin: 20px;
  }
 
