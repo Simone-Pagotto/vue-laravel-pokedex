@@ -2,14 +2,14 @@
   <div class="container">
     <div class="team">
       <p>YOUR TEAM!</p>
-      <div class="pokemon-box drop-zone" @drop='onDrop($event,1)' @dragover.prevent @dragenter.prevent>
-        <div v-for="pokemon in listOne()" :key="pokemon.id" class="drag-el" draggable="true" @dragstart='startDrag($event,pokemon)'>
+      <!-- <div class="pokemon-box drop-zone" >
+        <div v-for="pokemon in listOne()" :key="pokemon.id">
           <img :src="pokemon.image_link" alt="foto">
         </div>
-      </div>
+      </div> -->
     </div>
-    <ul class="drop-zone" @drop='onDrop($event,2)' @dragover.prevent @dragenter.prevent>
-       <div  v-for="pokemon in listTwo()" :key="pokemon.id" class="drag-el" draggable="true" @dragstart='startDrag($event,pokemon)'>
+    <ul class="drop-zone" >
+       <div  v-for="pokemon in pokemons" :key="pokemon.id" >
          <div class="card">
            <img :src="pokemon.image_link" alt="foto">
            <p>#{{pokemon.id}}  {{pokemon.name}}</p>
@@ -64,7 +64,7 @@ export default {
       Promise.all(this.pokemons);
   },
   methods: {
-    listOne () {
+   /*  listOne () {
       return this.pokemons.filter(item => item.list === 1);
     },
     listTwo () {
@@ -79,7 +79,7 @@ export default {
       const pokemonID = evt.dataTransfer.getData('pokemonID');
       const pokemon = this.pokemons.find(item=>item.id==pokemonID);
       pokemon.list = list;
-    }
+    } */
 }
 }
 </script>
@@ -116,7 +116,7 @@ export default {
    
  }
 
- ul .drag-el {
+ ul .card {
    margin: 20px;
  }
 
